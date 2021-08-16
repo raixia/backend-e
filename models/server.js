@@ -7,6 +7,7 @@ class Server {
 
         this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios';
+        this.authPath='/api/auth';
         this.conectaDB();
         this.middlewares();
         this.routes();//primero tiene que estar importado las rutas adyacentes arriba
@@ -20,7 +21,9 @@ class Server {
         this.app.use(express.static('public'));
     }
     routes() {
+        this.app.use(this.authPath, require('../routes/auth'));
         this.app.use(this.usuariosPath, require('../routes/usuarios'));
+        
     }
     listen() {
         this.app.listen(this.port, () => console.log(`Servidor corriendo en el puerto ${this.port}`))
