@@ -6,8 +6,13 @@ class Server {
         this.app = express();
 
         this.port = process.env.PORT;
-        this.usuariosPath = '/api/usuarios';
-        this.authPath='/api/auth';
+        this.paths={
+            
+            auth:'/api/auth',
+            categorias:'/api/categorias',
+            usuarios:'/api/usuarios',
+        }
+       
         this.conectaDB();
         this.middlewares();
         this.routes();//primero tiene que estar importado las rutas adyacentes arriba
@@ -21,8 +26,9 @@ class Server {
         this.app.use(express.static('public'));
     }
     routes() {
-        this.app.use(this.authPath, require('../routes/auth'));
-        this.app.use(this.usuariosPath, require('../routes/usuarios'));
+        this.app.use(this.paths.auth, require('../routes/auth'));
+        this.app.use(this.paths.usuarios, require('../routes/usuarios'));
+        this.app.use(this.paths.categorias, require('../routes/categorias'));
         
     }
     listen() {
