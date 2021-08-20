@@ -33,7 +33,8 @@ const ProductoSchema = Schema({
         required:true
     },
     imagenes:{
-        type:String,
+        type:Array,
+        default:[]
     },
     caracteristicas:{
         type:String,
